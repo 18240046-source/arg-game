@@ -16,27 +16,47 @@
   </style>
 </head>
 <body>
+
 <div class="container">
   <h1>アクセス履歴一覧</h1>
   <table>
     <thead><tr><th style="width: 20%;">PAGE</th><th>タイトル</th></tr></thead>
     <tbody>
+      <!-- 最初から開いているページ -->
       <tr><td class="page-num">01</td><td><a class="link-active" href="page01.html">白波市役所 公式サイト</a></td></tr>
+      <!-- 自動解放ページ (02〜05) -->
       <tr><td class="page-num">02</td><td id="slot_page02"><span class="link-locked">データ破損（未訪問）</span></td></tr>
+      <tr><td class="page-num">03</td><td id="slot_page03"><span class="link-locked">データ破損（未訪問）</span></td></tr>
+      <tr><td class="page-num">04</td><td id="slot_page04"><span class="link-locked">データ破損（未訪問）</span></td></tr>
+      <tr><td class="page-num">05</td><td id="slot_page05"><span class="link-locked">データ破損（未訪問）</span></td></tr>
     </tbody>
   </table>
+
+  <!-- リセットボタン -->
+  <button onclick="localStorage.clear(); location.reload();" style="margin-top: 30px; padding: 5px 10px; background: #ecc; border: 1px solid #caa; cursor: pointer;">
+    デバッグ用：訪問履歴をリセットする
+  </button>
 </div>
+
 <script>
+  // ページ名とタイトルのセットをリスト化
+  const pages = [
+    { id: 'page02', title: '白波市中央図書館 デジタルアーカイブ' },
+    { id: 'page03', title: '隠し部屋の古びたパソコン' },
+    { id: 'page04', title: '謎の暗号通信ログ' },
+    { id: 'page05', title: '黒幕のアジト監視カメラ' }
+  ];
+
   window.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('visited_page02')) {
-      document.getElementById('slot_page02').innerHTML = `<a class="link-active" href="page02.html">白波市中央図書館 デジタルアーカイブ</a>`;
-    }
+    pages.forEach(p => {
+      // ブラウザに訪問フラグ（visited_pageXX）があるかループで確認
+      if (localStorage.getItem('visited_' + p.id)) {
+        document.getElementById('slot_' + p.id).innerHTML = 
+          `<a class="link-active" href="${p.id}.html">${p.title}</a>`;
+      }
+    });
   });
 </script>
-</body>
-  <!-- クリックすると記憶を消してページを再読み込みするボタン -->
-<button onclick="localStorage.clear(); location.reload();" style="margin-top: 30px; padding: 5px 10px; background: #ecc; border: 1px solid #caa; cursor: pointer;">
-  デバッグ用：訪問履歴をリセットする
-</button>
-</html>
 
+</body>
+</html>
