@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>システムログ / 訪問履歴</title>
+  <style>
+    body { font-family: sans-serif; color: #333; margin: 0; padding: 20px; background: #fafafa; }
+    .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h1 { font-size: 20px; color: #1565c0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th { background-color: #e3f2fd; color: #555; text-align: left; padding: 12px; font-size: 14px; }
+    td { padding: 12px; border-bottom: 1px solid #eee; font-size: 15px; }
+    .page-num { color: #1565c0; font-weight: bold; width: 60px; }
+    .link-active { color: #0077cc; text-decoration: none; font-weight: bold; }
+    .link-locked { color: #aaa; font-style: italic; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>アクセス履歴一覧</h1>
+  <table>
+    <thead><tr><th style="width: 20%;">PAGE</th><th>タイトル</th></tr></thead>
+    <tbody>
+      <tr><td class="page-num">01</td><td><a class="link-active" href="page01.html">白波市役所 公式サイト</a></td></tr>
+      <tr><td class="page-num">02</td><td id="slot_page02"><span class="link-locked">データ破損（未訪問）</span></td></tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('visited_page02')) {
+      document.getElementById('slot_page02').innerHTML = `<a class="link-active" href="page02.html">白波市中央図書館 デジタルアーカイブ</a>`;
+    }
+  });
+</script>
+</body>
+</html>
